@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import "./style.css";
 
 function Header() {
@@ -7,16 +8,23 @@ function Header() {
     <header>
       <Navbar className="bg-nav" variant="light">
         <Container>
-          <Navbar.Brand href="#">Custom Market</Navbar.Brand>
+          <LinkContainer to="#">
+            <Navbar.Brand>Custom Market</Navbar.Brand>
+          </LinkContainer>
           <Nav>
-            <Nav.Link href="/cart">
-              <i className="me-2 fa fa-shopping-cart"></i>
-              Cart
-            </Nav.Link>
-            <Nav.Link href="/account">
-              <i className="fa me-2 fa-user"></i>
-              Account
-            </Nav.Link>
+            <LinkContainer to="/cart">
+              <Nav.Link>
+                <i className="me-2 fa fa-shopping-cart"></i>
+                Cart
+              </Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="/account">
+              <Nav.Link>
+                <i className="fa me-2 fa-user"></i>
+                Account
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Container>
       </Navbar>
