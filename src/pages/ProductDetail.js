@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { productDetailAction } from "redux/action/productAction";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 function ProductDetail({ match }) {
-  const [product, setProduct] = useState(null);
+  const dispatch = useDispatch();
+  const { loading, product } = useSelector((state) => state.productDetail);
+
   useEffect(() => {
-    const getData = async () => {
-      const { id } = match.params;
-      const response = await axios.get(
-        process.env.REACT_APP_API_URL + "/products/" + id
-      );
-      setProduct(response.data);
-    };
-    getData();
-  }, []);
+    dispatch(productDetailAction(match.params.id));
+  }, [dispatch, match]);
+
   return (
     <div>
       <Link to="/" className="btn btn-light my-3">
         Back to Home
       </Link>
-      {product ? (
+      {!loading ? (
         <Row>
           <Col md={6}>
             <Image src={product.image} fluid />
