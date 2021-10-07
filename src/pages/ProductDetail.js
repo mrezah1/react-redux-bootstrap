@@ -4,10 +4,12 @@ import { productDetailAction } from "redux/action/productAction";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
-function ProductDetail({ match }) {
+function ProductDetail({ history, match }) {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetail);
-
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}`);
+  };
   useEffect(() => {
     dispatch(productDetailAction(match.params.id));
   }, [dispatch, match]);
@@ -34,7 +36,11 @@ function ProductDetail({ match }) {
           <Col md={3}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <Button className="btn-block" type="button">
+                <Button
+                  onClick={addToCartHandler}
+                  className="btn-block"
+                  type="button"
+                >
                   Add to Cart
                 </Button>
               </ListGroup.Item>
