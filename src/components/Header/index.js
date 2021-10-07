@@ -8,7 +8,7 @@ function Header() {
     <header>
       <Navbar className="bg-nav" variant="light">
         <Container>
-          <LinkContainer to="#">
+          <LinkContainer to="/">
             <Navbar.Brand>Custom Market</Navbar.Brand>
           </LinkContainer>
           <Nav>
