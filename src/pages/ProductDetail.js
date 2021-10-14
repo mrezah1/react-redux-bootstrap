@@ -1,14 +1,35 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { productDetailAction } from "redux/action/productAction";
+import { addToCart } from "redux/action/cartAction";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
+import sweetAlertMaker from "utils/sweetAlertMaker";
 
 function ProductDetail({ history, match }) {
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetail);
+  const { cartItems } = useSelector((state) => state.cart);
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}`);
+    const isExistInCart = cartItems.find(
+      (item) => item.product === product._id
+    );
+    if (isExistInCart) {
+      const existSweet = {
+        title: "Exist",
+        text: `${product.name} is available in the cart`,
+        icon: "error",
+      };
+      sweetAlertMaker(existSweet);
+    } else {
+      const successSweet = {
+        title: "Added",
+        text: `${product.name} added to cart`,
+        icon: "success",
+      };
+      dispatch(addToCart(product._id));
+      sweetAlertMaker(successSweet);
+    }
   };
   useEffect(() => {
     dispatch(productDetailAction(match.params.id));

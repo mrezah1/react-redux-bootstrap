@@ -5,6 +5,7 @@ import Header from "components/Header";
 import Home from "pages/Home";
 import ProductDetail from "pages/ProductDetail";
 import Cart from "pages/cart";
+import sweetAlertMaker from "utils/sweetAlertMaker";
 
 function App() {
   return (

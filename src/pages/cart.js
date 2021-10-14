@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "redux/action/cartAction";
 
 function Cart({ match }) {
-  const productId = match.params.id;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -12,10 +11,7 @@ function Cart({ match }) {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
-  useEffect(() => {
-    if (productId) dispatch(addToCart(productId));
-  }, [dispatch, productId]);
-  return (
+    return (
     <div>
       <Row className="align-items-center">
         <Col md={8}>
@@ -24,8 +20,8 @@ function Cart({ match }) {
             <p>Your cart is empty</p>
           ) : (
             <ListGroup variant="flush">
-              {cartItems.map((item) => (
-                <ListGroup.Item key={item.id}>
+              {cartItems.map((item, idx) => (
+                <ListGroup.Item key={item.product}>
                   <Row className="align-items-center">
                     <Col md={2}>
                       <Image src={item.image} alt={item.name} fluid rounded />
