@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { productDetailAction } from "redux/action/productAction";
 import { addToCart } from "redux/action/cartAction";
@@ -6,7 +7,8 @@ import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 import sweetAlertMaker from "utils/sweetAlertMaker";
 
-function ProductDetail({ history, match }) {
+function ProductDetail() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { loading, product } = useSelector((state) => state.productDetail);
   const { cartItems } = useSelector((state) => state.cart);
@@ -32,8 +34,8 @@ function ProductDetail({ history, match }) {
     }
   };
   useEffect(() => {
-    dispatch(productDetailAction(match.params.id));
-  }, [dispatch, match]);
+    dispatch(productDetailAction(id));
+  }, [dispatch, id]);
 
   return (
     <div>

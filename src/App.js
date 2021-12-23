@@ -1,5 +1,10 @@
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Home from "pages/Home";
@@ -13,9 +18,13 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <Route exact path="/" component={Home} />
-          <Route path="/product/:id" component={ProductDetail} />
-          <Route path="/cart/:id?" component={Cart} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/404" element={<p>Not Found!</p>} />
+            <Route path="*" element={<Navigate replace to="/404" />} />
+          </Routes>
         </Container>
       </main>
       <Footer />
